@@ -2,7 +2,7 @@ import { galleryItems } from './gallery-items.js';
 const listGallery = document.querySelector(".gallery");
 const markup = galleryItems.map((elem) =>
     `<li class="gallery__item">
-        <a class="gallery__link" rel="noreferrer noopener" href="${elem.original}">
+        <a class="gallery__link" onclick="return false" href="${elem.original}">
             <img
                 class="gallery__image"
                 src="${elem.preview}"
