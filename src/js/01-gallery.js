@@ -1,5 +1,8 @@
 import { galleryItems } from './gallery-items.js';
 const listGallery = document.querySelector(".gallery");
+let instance
+let flagModal
+
 const markup = galleryItems.map((elem) =>
     `<li class="gallery__item">
         <a class="gallery__link" onclick="return false" href="${elem.original}">
@@ -19,17 +22,23 @@ console.log(galleryItems);
 listGallery.addEventListener("click", selectImg);
 
 function selectImg(event) {
+    flagModal = 0
     const selectedImg = event.target.dataset.source;
     console.log(selectedImg);
 
-    const instance = basicLightbox.create(`
-        <div class="modal">
+    instance = basicLightbox.create(`
+        <div class="modal" id="modalita">
             <img src= "${selectedImg}"/>
-        </div>
-    `)
-    instance.show()
-}
+         </div>   
+            `)
+        instance.show()
+};
 
-
-
-
+document.addEventListener('keydown', event => {
+    const modal = document.querySelector('#modalita');
+    if ((modal.style.display != 'none') && (event.key === "Escape") && !flagModal) {
+        flagModal = 1;
+        instance.close();
+        console.log("Нажата Esc – следы прошлого все еще с нами!");
+    }
+});
