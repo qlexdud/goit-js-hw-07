@@ -1,7 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 const listGallery = document.querySelector(".gallery");
 let instance
-let flagModal
+let flagModal = 0;
 
 const markup = galleryItems.map((elem) =>
     `<li class="gallery__item">
@@ -27,7 +27,7 @@ function selectImg(event) {
     console.log(selectedImg);
 
     instance = basicLightbox.create(`
-        <div class="modal" id="modalita">
+        <div class="modal">
             <img src= "${selectedImg}"/>
          </div>   
             `)
@@ -35,8 +35,7 @@ function selectImg(event) {
 };
 
 document.addEventListener('keydown', event => {
-    const modal = document.querySelector('#modalita');
-    if ((modal.style.display != 'none') && (event.key === "Escape") && !flagModal) {
+    if ((event.key === "Escape") && !flagModal) {
         flagModal = 1;
         instance.close();
         console.log("Нажата Esc – следы прошлого все еще с нами!");
